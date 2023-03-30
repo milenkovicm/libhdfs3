@@ -156,10 +156,10 @@ Token & Token::fromString(const std::string & str) {
         WritableUtils in(buffer.data(), buffer.size());
         len = in.ReadInt32();
         identifier.resize(len);
-        in.ReadRaw(identifier.data(), len);
+        in.ReadRaw(&identifier[0], len);
         len = in.ReadInt32();
         password.resize(len);
-        in.ReadRaw(password.data(), len);
+        in.ReadRaw(&password[0], len);
         kind = in.ReadText();
         service = in.ReadText();
         return *this;

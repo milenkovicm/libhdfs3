@@ -137,7 +137,7 @@ std::string SaslClient::evaluateChallenge(const std::string & challenge) {
 
     if (rc == GSASL_NEEDS_MORE || rc == GSASL_OK) {
         retval.resize(outputSize);
-        memcpy(retval.data(), output, outputSize);
+        memcpy(&retval[0], output, outputSize);
 
         if (output) {
             free(output);

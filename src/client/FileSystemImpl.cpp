@@ -110,13 +110,16 @@ FileSystemImpl::FileSystemImpl(const FileSystemKey& key, const Config& c)
     static atomic<uint32_t> count(0);
     std::stringstream ss;
     ss.imbue(std::locale::classic());
+    
+    // reverted https://github.com/ClickHouse/libhdfs3/pull/14
+    //
+    // double rand;
+    // static drand48_data buf;
+    // srand48_r(time(NULL), &buf);
+    // drand48_r(&buf, &rand);
 
-    double rand;
-    static drand48_data buf;
-    srand48_r(time(NULL), &buf);
-    drand48_r(&buf, &rand);
-
-    ss << "libhdfs3_client_rand_" + std::to_string(rand) + "_count_" << ++count << "_pid_"
+    //ss << "libhdfs3_client_rand_" + std::to_string(rand) + "_count_" << ++count << "_pid_"
+    ss << "libhdfs3_client_count_" << ++count << "_pid_"
        << getpid() << "_tid_" << pthread_self();
 
     clientName = ss.str();
